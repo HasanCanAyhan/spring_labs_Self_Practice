@@ -15,13 +15,13 @@ public class Order extends BaseEntity {
     private BigDecimal paidPrice;
     private BigDecimal totalPrice;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Cart cart;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Payment payment;
 
 }

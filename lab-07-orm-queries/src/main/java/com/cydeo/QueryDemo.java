@@ -3,6 +3,8 @@ import com.cydeo.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class QueryDemo implements CommandLineRunner {
 
@@ -68,6 +70,8 @@ public class QueryDemo implements CommandLineRunner {
         //System.out.println("findTop3ByOrderByPriceDesc : " + productRepository.findTop3ByOrderByPriceDesc());
 
 
+        System.out.println("findAllByTotalPriceIsNotAndAndPaidPriceIsNotAndCartDiscount_DiscountIsNotNull : " +
+                orderRepository.findAllByTotalPriceIsNotAndPaidPriceIsNotAndCartDiscount_DiscountIsNotNull(BigDecimal.valueOf(767.98), BigDecimal.valueOf(1563.97)));
 
     }
 }
