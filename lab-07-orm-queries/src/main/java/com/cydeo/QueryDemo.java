@@ -30,16 +30,19 @@ public class QueryDemo implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("findAllByCustomerId : " + addressRepository.findAllByCustomerId(498L));
-        System.out.println("findAllByStreet : " + addressRepository.findAllByStreet("Everett"));
-        System.out.println("findTop3ByCustomer_Email : " + addressRepository.findTop3ByCustomer_Email("theinigdt@sohu.com"));
-        System.out.println("findAllByCustomer_UserName : " + addressRepository.findAllByCustomer_UserName("asturton0"));
-        System.out.println("findAllByStreetStartingWith : " + addressRepository.findAllByStreetStartingWith("A"));
-        System.out.println("fetchAllAddressByCustomerId : " + addressRepository.fetchAllAddressByCustomerId(498L));
+        System.out.println("---------------------ADDRESS------------------------------------------------");
 
-        System.out.println("---------------------------------------------------------------------");
+        //System.out.println("findAllByCustomerId : " + addressRepository.findAllByCustomerId(498L));
+        //System.out.println("findAllByStreet : " + addressRepository.findAllByStreet("Everett"));
+        //System.out.println("findTop3ByCustomer_Email : " + addressRepository.findTop3ByCustomer_Email("theinigdt@sohu.com"));
+        //System.out.println("findAllByCustomer_UserName : " + addressRepository.findAllByCustomer_UserName("asturton0"));
+        //System.out.println("findAllByStreetStartingWith : " + addressRepository.findAllByStreetStartingWith("A"));
+        //System.out.println("fetchAllAddressByCustomerId : " + addressRepository.fetchAllAddressByCustomerId(498L));
 
-        System.out.println("existsBalanceByCustomerId : " + balanceRepository.existsBalanceByCustomerId(498L));
+        System.out.println("---------------------BALANCE------------------------------------------------");
+
+        //System.out.println("existsBalanceByCustomerId : " + balanceRepository.existsBalanceByCustomerId(498L));
+        //System.out.println("fetchMax5Balance : " + balanceRepository.fetchMax5Balance());
 
     }
 }
