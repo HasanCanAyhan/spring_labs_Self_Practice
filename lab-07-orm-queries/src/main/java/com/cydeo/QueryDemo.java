@@ -1,4 +1,5 @@
 package com.cydeo;
+import com.cydeo.enums.CartState;
 import com.cydeo.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,12 @@ public class QueryDemo implements CommandLineRunner {
 
         //System.out.println("existsBalanceByCustomerId : " + balanceRepository.existsBalanceByCustomerId(498L));
         //System.out.println("fetchMax5Balance : " + balanceRepository.fetchMax5Balance());
+
+        System.out.println("---------------------CART-ITEM------------------------------------------------");
+
+        //System.out.println("countAllBy : " + cartItemRepository.countAllBy());
+        System.out.println("fetchCartItemsByStateAndProductName : "
+                + cartItemRepository.fetchCartItemsByStateAndProductName(CartState.CREATED,"Carbonated Water - Orange"));
 
     }
 }

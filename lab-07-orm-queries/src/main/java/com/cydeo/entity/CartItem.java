@@ -14,10 +14,10 @@ public class CartItem extends BaseEntity {
 
     private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Cart cart;
 
 
