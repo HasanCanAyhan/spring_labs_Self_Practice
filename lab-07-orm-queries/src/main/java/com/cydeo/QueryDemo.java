@@ -48,8 +48,10 @@ public class QueryDemo implements CommandLineRunner {
         System.out.println("---------------------CART-ITEM------------------------------------------------");
 
         //System.out.println("countAllBy : " + cartItemRepository.countAllBy());
-        System.out.println("fetchCartItemsByStateAndProductName : "
-                + cartItemRepository.fetchCartItemsByStateAndProductName(CartState.CREATED,"Carbonated Water - Orange"));
+        //System.out.println("fetchCartItemsByStateAndProductName : "
+          //      + cartItemRepository.fetchCartItemsByStateAndProductName(CartState.CREATED,"Carbonated Water - Orange"));
 
+        System.out.println("---------------------CART------------------------------------------------");
+        System.out.println("findAllByCustomerIdAndDiscountIsNull : " + cartRepository.findAllByCustomerIdAndDiscountIsNull(56L));
     }
 }
