@@ -1,5 +1,4 @@
 package com.cydeo;
-import com.cydeo.enums.CartState;
 import com.cydeo.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,9 @@ public class QueryDemo implements CommandLineRunner {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
-    public QueryDemo(AddressRepository addressRepository, BalanceRepository balanceRepository, CartItemRepository cartItemRepository, CartRepository cartRepository, CustomerRepository customerRepository, DiscountRepository discountRepository, OrderRepository orderRepository, ProductRepository productRepository) {
+    private final CategoryRepository categoryRepository;
+
+    public QueryDemo(AddressRepository addressRepository, BalanceRepository balanceRepository, CartItemRepository cartItemRepository, CartRepository cartRepository, CustomerRepository customerRepository, DiscountRepository discountRepository, OrderRepository orderRepository, ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.addressRepository = addressRepository;
         this.balanceRepository = balanceRepository;
         this.cartItemRepository = cartItemRepository;
@@ -25,6 +26,7 @@ public class QueryDemo implements CommandLineRunner {
         this.discountRepository = discountRepository;
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -52,6 +54,20 @@ public class QueryDemo implements CommandLineRunner {
           //      + cartItemRepository.fetchCartItemsByStateAndProductName(CartState.CREATED,"Carbonated Water - Orange"));
 
         System.out.println("---------------------CART------------------------------------------------");
-        System.out.println("findAllByCustomerIdAndDiscountIsNull : " + cartRepository.findAllByCustomerIdAndDiscountIsNull(56L));
+       // System.out.println("findAllByCustomerIdAndDiscountIsNull : " + cartRepository.findAllByCustomerIdAndDiscountIsNull(56L));
+
+        System.out.println("---------------------CATEGORY------------------------------------------------");
+        //System.out.println("findTop3ByOrderByName : " + categoryRepository.findTop3ByOrderByName() );
+
+        System.out.println("---------------------CUSTOMER------------------------------------------------");
+
+        //System.out.println("findById : " + customerRepository.findById(1L));
+
+        System.out.println("---------------------PRODUCT------------------------------------------------");
+
+        //System.out.println("findTop3ByOrderByPriceDesc : " + productRepository.findTop3ByOrderByPriceDesc());
+
+
+
     }
 }
