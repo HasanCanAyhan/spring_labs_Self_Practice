@@ -32,6 +32,7 @@ public class QueryDemo implements CommandLineRunner {
 
         System.out.println("findAllByCustomerId : " + addressRepository.findAllByCustomerId(498L));
         System.out.println("findAllByStreet : " + addressRepository.findAllByStreet("Everett"));
+        System.out.println("findAllByStreet : " + addressRepository.findAllByStreet("Everett"));
 
 
     }
