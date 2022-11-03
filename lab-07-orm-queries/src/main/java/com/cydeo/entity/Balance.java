@@ -15,7 +15,7 @@ public class Balance extends BaseEntity {
 
     private BigDecimal amount;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Customer customer;
 
 
