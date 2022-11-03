@@ -1,0 +1,8 @@
+/.idea/
+/spring_labs_SelfPractice.iml
+target
+*.iml
+/.mvn/
+mvnw.cmd
+mvnw
+test
