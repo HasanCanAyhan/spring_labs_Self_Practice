@@ -39,6 +39,6 @@ public interface CartItemRepository extends JpaRepository<CartItem,Long> {
     @Query(value = "SELECT * FROM cart_item ci JOIN cart c " +
             "ON ci.cart_id = c.id JOIN discount d ON c.discount_id = d.id" +
             "WHERE d.discount_type = ?1 AND c.cart_state = ?2 ", nativeQuery = true)
-    List<CartItem> fetchAllByCartStateAndDiscountType(@Param("discountType") String discountType, @Param("state") String state);
+    List<CartItem> fetchAllByCartStateAndDiscountType(@Param("discountType") String discountType, @Param("cart_state") String cartState);
 
 }
