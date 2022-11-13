@@ -8,6 +8,7 @@ import com.cydeo.enums.CartState;
 import com.cydeo.enums.DiscountType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,15 +21,18 @@ public interface CartItemRepository extends JpaRepository<CartItem,Long> {
     //Write a derived query to get cart items for specific cart state
     List<CartItem> findAllByCart_CartState(CartState cartState);
     //Write a native query to get cart items for specific cart state and product name
-    @Query("select ci from CartItem ci where ci.cart.cartState = ?1 and ci.product.name = ?2")
-    List<CartItem> fetchCartItemsByStateAndProductName(CartState cartState, String productName);
+    @Query(value = "SELECT * FROM cart_item ci " +
+            " JOIN cart c  ON ci.cart_id=c.id" +
+            " JOIN product p ON ci.product_id=p.id" +
+            " where c.cart_state=?1 AND p.name=?2",nativeQuery = true)
+    List<CartItem> retrieveCartItemsByStateAndName(@Param("cart_state") String cart_state, @Param("name") String name);
 
     //Write a native query to get cart items for specific cart state and without discount
 
 
     @Query(value = "select * from cart_item join cart c on c.id = cart_item.cart_id\n" +
             "where c.cart_state = ?1 and c.discount_id is null ", nativeQuery = true)
-    List<CartItem> getCartItemsByCartStateWithoutDiscount(CartState cartState);
+    List<CartItem> getCartItemsByCartStateWithoutDiscount(String cartState);
 
     //Write a native query to get cart items for specific cart state and with specific Discount type
 
