@@ -15,7 +15,7 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
     Optional<Category> findByName(String name);
     //Write a derived query to get top 3 categories order by name desc
 
-    List<Category> findTop3ByOrderByName();
+    List<Category> findTop3ByOrderByNameDesc();
 
 
 }
