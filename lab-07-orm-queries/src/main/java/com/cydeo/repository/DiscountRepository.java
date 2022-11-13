@@ -18,7 +18,7 @@ public interface DiscountRepository extends JpaRepository<Discount,Long> {
 
     //Write a derived query to get all discounts greater than discount amount
 
-    List<Discount> findAllByDiscountGreaterThan(BigDecimal bigDecimal);
+    List<Discount> findAllByDiscountGreaterThan(BigDecimal discount);
 
     //Write a derived query to get all discounts by specific discount type
 
@@ -27,6 +27,6 @@ public interface DiscountRepository extends JpaRepository<Discount,Long> {
     //Write a JPQL query to get all discounts amount between range of discount amount
 
     @Query("select d from Discount d where d.discount between ?1 and ?2")
-    List<Discount> getAllByAmountBetween(BigDecimal amount);
+    List<Discount> getAllByAmountBetween(BigDecimal startAmount,BigDecimal endAmount);
 
 }

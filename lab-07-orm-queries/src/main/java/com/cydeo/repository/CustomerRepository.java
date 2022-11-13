@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
-    //Write a derived query to get all customer by id
+    //Write a derived query to get  customer by id
 
     Optional<Customer> findById(Long id);
 
