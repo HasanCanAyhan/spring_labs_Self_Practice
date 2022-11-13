@@ -19,6 +19,8 @@ public class QueryDemo implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
 
+
+
     public QueryDemo(AddressRepository addressRepository, BalanceRepository balanceRepository, CartItemRepository cartItemRepository, CartRepository cartRepository, CustomerRepository customerRepository, DiscountRepository discountRepository, OrderRepository orderRepository, ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.addressRepository = addressRepository;
         this.balanceRepository = balanceRepository;
