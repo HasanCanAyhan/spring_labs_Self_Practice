@@ -71,10 +71,5 @@ public class QueryDemo implements CommandLineRunner {
         System.out.println("---------------------PRODUCT------------------------------------------------");
 
         //System.out.println("findTop3ByOrderByPriceDesc : " + productRepository.findTop3ByOrderByPriceDesc());
-
-
-        System.out.println("findAllByTotalPriceIsNotAndAndPaidPriceIsNotAndCartDiscount_DiscountIsNotNull : " +
-                orderRepository.findAllByTotalPriceIsNotAndPaidPriceIsNotAndCartDiscount_DiscountIsNotNull(BigDecimal.valueOf(767.98), BigDecimal.valueOf(1563.97)));
-
     }
 }
