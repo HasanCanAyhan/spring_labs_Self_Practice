@@ -1,6 +1,7 @@
 package com.cydeo.repository;
 
 import com.cydeo.entity.Address;
+import com.cydeo.entity.Category;
 import com.cydeo.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +24,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     //Write a derived query to get product by specific category
 
 
-    //Optional<Product> findByCategoryList(Long id);
+    //Optional<Product> findByCategoryListContaining(Category category);
 
     //Write a derived query to get count by price greater than specific amount
 
