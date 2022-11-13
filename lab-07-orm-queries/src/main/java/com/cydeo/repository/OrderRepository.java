@@ -52,12 +52,13 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     //Write a derived query to get all orders by totalPrice and paidPrice are equals
 
-    List<Order> findAllByTotalPriceEqualsAndPaidPriceEquals(BigDecimal totalPrice, BigDecimal paidPrice);
-
+    @Query("select  o from Order o where  o.paidPrice = o.totalPrice")
+            List<Order> listAllOrdersIfTotalPriceAndPaidPriceEquals();
 
     //Write a derived query to get all orders by totalPrice and paidPrice are not equals and discount is not null
 
-    List<Order> findAllByTotalPriceIsNotAndPaidPriceIsNotAndCartDiscount_DiscountIsNotNull(BigDecimal totalPrice, BigDecimal paidPrice);
+    @Query("select o from Order  o where o.paidPrice <> o.totalPrice and o.cart.discount is not null")
+    List<Order> findAllByPaidPriceAndTotalPriceIsNotEqualsAndCart_Discount_IdIsNull();
 
 
 
