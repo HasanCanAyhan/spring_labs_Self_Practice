@@ -36,10 +36,9 @@ public interface CartItemRepository extends JpaRepository<CartItem,Long> {
 
     //Write a native query to get cart items for specific cart state and with specific Discount type
 
-    @Query(value = "\n" +
-            "select * from cart_item join cart c on c.id = cart_item.cart_id\n" +
-            "         join discount d on d.id = c.discount_id\n" +
-            "where c.cart_state = ?1 and d.discount_type = ?2",nativeQuery = true)
-    List<CartItem> fetchCartItemByCartStateAndDiscountType(CartState cartState, DiscountType discountType);
+    @Query(value = "SELECT * FROM cart_item ci JOIN cart c " +
+            "ON ci.cart_id = c.id JOIN discount d ON c.discount_id = d.id" +
+            "WHERE d.discount_type = ?1 AND c.cart_state = ?2 ", nativeQuery = true)
+    List<CartItem> fetchAllByCartStateAndDiscountType(@Param("discountType") String discountType, @Param("state") String state);
 
 }
