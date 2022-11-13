@@ -5,6 +5,7 @@ import com.cydeo.entity.Order;
 import com.cydeo.enums.PaymentMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -35,11 +36,11 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     //Write a native query to get all orders by specific product name
 
-    @Query(value = "select * from orders \n" +
-            "    join customer c on c.id = orders.customer_id \n" +
-            "    join cart_item ci on orders.cart_id = ci.cart_id \n" +
-            "    join product p on p.id = ci.product_id where p.name = ?1", nativeQuery = true)
-    List<Order> fetchOrdersBySpecificProductName(String productName);
+    @Query(value = "SELECT * FROM orders o JOIN cart c ON o.cart_id = c.id" +
+            "JOIN cart_item ci ON ci.cart_id = c.id" +
+            "JOIN product p ON ci.product_id = p.id" +
+            "WHERE p.name = ?1", nativeQuery = true)
+    List<Order> fetchAllByProductName(@Param("name") String name);
 
     //Write a native query to get all orders by specific categoryId
 
