@@ -7,11 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/address")
 public class AddressController {
 
     private final AddressService addressService;
+
 
     public AddressController(AddressService addressService) {
         this.addressService = addressService;
@@ -38,6 +41,35 @@ public class AddressController {
 
 
     }
+
+
+    @GetMapping("/startsWith/{address}")
+    public ResponseEntity<ResponseWrapper> getAddressListByStartsWithAddress(@PathVariable("address") String address){
+        List<AddressDTO> addressDTOS = addressService.getAddressListByStartsWithAddress(address);
+        return ResponseEntity.ok(new ResponseWrapper("Addresses are successfully retrieved", addressDTOS, HttpStatus.OK));
+
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<ResponseWrapper> getAddressListByCustomerId(@PathVariable("id") Long id){
+
+        List<AddressDTO> addressDTOList = addressService.getAddressListByCustomerId(id);
+
+        return ResponseEntity.ok(new ResponseWrapper("Addresses are successfully retrieved", addressDTOList, HttpStatus.OK));
+
+
+    }
+
+    @GetMapping("/customer/{customerId}/name/{name}")
+    public ResponseEntity<ResponseWrapper> getAddressListByCustomerAndName(@PathVariable("customerId") Long customerId,@PathVariable("name") String addressName){
+
+        List<AddressDTO> addressDTOS = addressService.getAddressListByCustomerAndName(customerId, addressName);
+        return ResponseEntity.ok(new ResponseWrapper("Addresses are successfully retrieved", addressDTOS, HttpStatus.OK));
+
+    }
+
+
+
 
 
 }

@@ -1,10 +1,13 @@
 package com.cydeo.lab08rest.service.impl;
 
 import com.cydeo.lab08rest.dto.AddressDTO;
+import com.cydeo.lab08rest.dto.CustomerDTO;
 import com.cydeo.lab08rest.entity.Address;
+import com.cydeo.lab08rest.entity.Customer;
 import com.cydeo.lab08rest.mapper.MapperUtil;
 import com.cydeo.lab08rest.repository.AddressRepository;
 import com.cydeo.lab08rest.service.AddressService;
+import com.cydeo.lab08rest.service.CustomerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +20,12 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final MapperUtil mapperUtil;
 
-    public AddressServiceImpl(AddressRepository addressRepository, MapperUtil mapperUtil) {
+    private final CustomerService customerService;
+
+    public AddressServiceImpl(AddressRepository addressRepository, MapperUtil mapperUtil, CustomerService customerService) {
         this.addressRepository = addressRepository;
         this.mapperUtil = mapperUtil;
+        this.customerService = customerService;
     }
 
 
@@ -62,16 +68,33 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<AddressDTO> getAddressListByStartsWithAddress(String address) {
-        return null;
+
+        List<Address> addressList = addressRepository.findAllByStreetStartingWith(address);
+        return addressList.stream()
+                .map(address1 -> mapperUtil.convert(address1,new AddressDTO()))
+                .collect(Collectors.toList());
+
     }
 
     @Override
     public List<AddressDTO> getAddressListByCustomerId(Long customerId) {
-        return null;
+
+        List<Address> addresses = addressRepository.retrieveByCustomerId(customerId);
+        return addresses.stream()
+                .map(address1 -> mapperUtil.convert(address1,new AddressDTO()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<AddressDTO> getAddressListByCustomerAndName(Long customerId, String addressName) {
-        return null;
+
+        CustomerDTO customerDTO = customerService.findById(customerId);
+
+        Customer customer = mapperUtil.convert(customerDTO, new Customer());
+
+        List<Address> addressList = addressRepository.findAllByCustomerAndName(customer, addressName);
+        return addressList.stream()
+                .map(address -> mapperUtil.convert(address,new AddressDTO()))
+                .collect(Collectors.toList());
     }
 }
