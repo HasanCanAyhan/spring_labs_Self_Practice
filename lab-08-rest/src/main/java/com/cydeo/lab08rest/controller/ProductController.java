@@ -2,6 +2,7 @@ package com.cydeo.lab08rest.controller;
 
 
 import com.cydeo.lab08rest.dto.ProductDTO;
+import com.cydeo.lab08rest.entity.Category;
 import com.cydeo.lab08rest.model.ResponseWrapper;
 import com.cydeo.lab08rest.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -24,22 +25,19 @@ public class ProductController {
 
 
     @GetMapping
-    public ResponseEntity<ResponseWrapper> getProductList(){
+    public ResponseEntity<ResponseWrapper> getProductList() {
         return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved", productService.getProductList(), HttpStatus.OK));
     }
 
 
     @PostMapping
-    public ResponseEntity<ResponseWrapper> createProduct(@RequestBody ProductDTO productDTO){
+    public ResponseEntity<ResponseWrapper> createProduct(@RequestBody ProductDTO productDTO) {
         ProductDTO productDTO1 = productService.save(productDTO);
-        return ResponseEntity.ok(new ResponseWrapper("Product is successfully created",productDTO1, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Product is successfully created", productDTO1, HttpStatus.OK));
     }
 
     @PostMapping("/categoryandprice")//??????????
-    public ResponseEntity<ResponseWrapper> createCategoryAndPrice(@RequestBody ProductDTO productDTO) {
-
-
-
+    public ResponseEntity<ResponseWrapper> createCategoryAndPrice() {
         return null;
 
     }
@@ -50,56 +48,53 @@ public class ProductController {
 
         ProductDTO updatedProduct = productService.update(productDTO);
 
-        return ResponseEntity.ok(new ResponseWrapper("Product is successfully updated",updatedProduct, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Product is successfully updated", updatedProduct, HttpStatus.OK));
 
     }
 
 
-
-
     @GetMapping("/{name}")
-    public ResponseEntity<ResponseWrapper> getProductByName(@PathVariable("name") String name){
+    public ResponseEntity<ResponseWrapper> getProductByName(@PathVariable("name") String name) {
 
         ProductDTO productDTO = productService.getProductByName(name);
-        return ResponseEntity.ok(new ResponseWrapper("Product is successfully retrieved",productDTO, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Product is successfully retrieved", productDTO, HttpStatus.OK));
 
     }
 
 
     @GetMapping("/top3")
-    public ResponseEntity<ResponseWrapper> getTop3ProductList(){
+    public ResponseEntity<ResponseWrapper> getTop3ProductList() {
 
         List<ProductDTO> top3ProductList = productService.getTop3ProductList();
-        return ResponseEntity.ok(new ResponseWrapper("Product is successfully retrieved",top3ProductList, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Product is successfully retrieved", top3ProductList, HttpStatus.OK));
 
     }
 
 
     @GetMapping("/price/{price}")
-    public ResponseEntity<ResponseWrapper> getProductListByPrice(@PathVariable("price") BigDecimal price){ // it is asking the count greater than specific price
+    public ResponseEntity<ResponseWrapper> getProductListByPrice(@PathVariable("price") BigDecimal price) { // it is asking the count greater than specific price
         Integer count = productService.getProductListByPrice(price);
-        return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved",count, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved", count, HttpStatus.OK));
 
     }
 
     //***
-    @GetMapping("/price/{price}/quantity/{quantity}")// inside ProductControllerTest there is no api endpoint to test it.
-    public ResponseEntity<ResponseWrapper> getProductListByPriceAndQuantity(@PathVariable("price") BigDecimal price, @PathVariable("quantity") Integer quantity){
+    @GetMapping("/price/{price}/quantity/{quantity}")
+// inside ProductControllerTest there is no api endpoint to test it.
+    public ResponseEntity<ResponseWrapper> getProductListByPriceAndQuantity(@PathVariable("price") BigDecimal price, @PathVariable("quantity") Integer quantity) {
 
         List<ProductDTO> productDTOS = productService.getProductListByPriceAndQuantity(price, quantity);
 
-        return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved",productDTOS, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved", productDTOS, HttpStatus.OK));
     }
 
 
     @GetMapping("/category/{id}")
-    public ResponseEntity<ResponseWrapper> getProductListByCategory(@PathVariable("id") Long  id){
+    public ResponseEntity<ResponseWrapper> getProductListByCategory(@PathVariable("id") Long id) {
         List<ProductDTO> productDTOList = productService.getProductListByCategory(id);
 
-        return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved",productDTOList, HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved", productDTOList, HttpStatus.OK));
     }
-
-
 
 
 }
