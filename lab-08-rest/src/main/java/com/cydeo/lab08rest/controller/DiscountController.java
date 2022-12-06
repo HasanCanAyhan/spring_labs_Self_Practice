@@ -41,11 +41,8 @@ public class DiscountController {
 
     @GetMapping("/{name}")
     public ResponseEntity<ResponseWrapper> getDiscountListByName(@PathVariable("name") String name){
-
         DiscountDTO discountDTO = discountService.retrieveDiscountByName(name);
         return ResponseEntity.ok(new ResponseWrapper("Customer is successfully retrieved",discountDTO,HttpStatus.OK));
-
-
     }
 
 }
