@@ -46,7 +46,7 @@ public class OrderController {
 
         OrderDTO dto = orderService.save(orderDTO);
 
-        return ResponseEntity.ok(new ResponseWrapper("Orders are successfully created",orderService.save(dto), HttpStatus.OK));
+        return ResponseEntity.ok(new ResponseWrapper("Orders are successfully created",dto, HttpStatus.OK));
 
 
     }
