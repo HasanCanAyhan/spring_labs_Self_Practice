@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/api/v1/product")
 public class ProductController {
@@ -48,6 +50,38 @@ public class ProductController {
         return ResponseEntity
                 .ok(new ResponseWrapper("Product is successfully retrieved", productService.retrieveProductByCategoryAndPrice(productRequest.getCategoryList(), productRequest.getPrice()), HttpStatus.OK));
     }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<ResponseWrapper> retrieveProductListByName(@PathVariable("name") String name) {
+        return ResponseEntity.ok(new ResponseWrapper("Product are successfully retrieved", productService.retrieveByName(name), HttpStatus.OK));
+    }
+
+
+    @GetMapping("/top3")
+    public ResponseEntity<ResponseWrapper> retrieveProductByTop3ProductByPrice(){
+        return ResponseEntity.ok(new ResponseWrapper("Product are successfully retrieved", productService.retrieveProductByTop3ProductByPrice(), HttpStatus.OK));
+    }
+
+    @GetMapping("/price/{price}")
+    public ResponseEntity<ResponseWrapper> countProductByPrice(@PathVariable BigDecimal price){
+        return ResponseEntity.ok(new ResponseWrapper("Product are successfully retrieved", productService.countProductByPrice(price), HttpStatus.OK));
+
+    }
+
+    @GetMapping("/price/{price}/quantity/{quantity}")
+    public ResponseEntity<ResponseWrapper> retrieveProductByPriceAndByQuantity(@PathVariable BigDecimal price,@PathVariable Integer quantity){
+        return ResponseEntity.ok(new ResponseWrapper("Product are successfully retrieved", productService.retrieveProductByPriceAndByQuantity(price,quantity), HttpStatus.OK));
+
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<ResponseWrapper> retrieveProductCategoryById(@PathVariable("id") Long id ){
+        return ResponseEntity.ok(new ResponseWrapper("Product are successfully retrieved", productService
+                .retrieveProductByCategory(id), HttpStatus.OK));
+
+    }
+
+
 
 
 }
