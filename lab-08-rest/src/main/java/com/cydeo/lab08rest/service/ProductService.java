@@ -1,6 +1,7 @@
 package com.cydeo.lab08rest.service;
 
 import com.cydeo.lab08rest.dto.ProductDTO;
+import com.cydeo.lab08rest.dto.ProductRequest;
 import com.cydeo.lab08rest.entity.Category;
 
 import java.math.BigDecimal;
@@ -25,5 +26,5 @@ public interface ProductService {
     ProductDTO update(ProductDTO productDTO);
 
 
-
+    List<ProductDTO> getProductRequest(ProductRequest productRequest);
 }

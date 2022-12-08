@@ -2,6 +2,7 @@ package com.cydeo.lab08rest.controller;
 
 
 import com.cydeo.lab08rest.dto.ProductDTO;
+import com.cydeo.lab08rest.dto.ProductRequest;
 import com.cydeo.lab08rest.entity.Category;
 import com.cydeo.lab08rest.model.ResponseWrapper;
 import com.cydeo.lab08rest.service.ProductService;
@@ -36,9 +37,13 @@ public class ProductController {
         return ResponseEntity.ok(new ResponseWrapper("Product is successfully created", productDTO1, HttpStatus.OK));
     }
 
-    @PostMapping("/categoryandprice")//??????????
-    public ResponseEntity<ResponseWrapper> createCategoryAndPrice() {
-        return null;
+    @PostMapping("/categoryandprice")
+    public ResponseEntity<ResponseWrapper> getCategoryAndPrice(@RequestBody ProductRequest productRequest) {
+
+        List<ProductDTO> productDTOS = productService.getProductRequest(productRequest);
+
+
+        return ResponseEntity.ok(new ResponseWrapper("Products are successfully retrieved", productDTOS, HttpStatus.OK));
 
     }
 
@@ -78,9 +83,8 @@ public class ProductController {
 
     }
 
-    //***
+
     @GetMapping("/price/{price}/quantity/{quantity}")
-// inside ProductControllerTest there is no api endpoint to test it.
     public ResponseEntity<ResponseWrapper> getProductListByPriceAndQuantity(@PathVariable("price") BigDecimal price, @PathVariable("quantity") Integer quantity) {
 
         List<ProductDTO> productDTOS = productService.getProductListByPriceAndQuantity(price, quantity);
