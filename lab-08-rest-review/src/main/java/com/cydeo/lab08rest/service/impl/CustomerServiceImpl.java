@@ -40,6 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO update(CustomerDTO customerDTO) {
 
+        /*
         Customer customer = customerRepository.findByUsername(customerDTO.getUserName());
         //lets say username is unique in the Customer-Entity
 
@@ -51,6 +52,14 @@ public class CustomerServiceImpl implements CustomerService {
         Customer savedCustomer = customerRepository.save(customer);
 
         return mapperUtil.convert(savedCustomer,new CustomerDTO());
+
+         */
+
+        Customer customer  = customerRepository.save(mapperUtil.convert(customerDTO,new Customer()));
+
+        return mapperUtil.convert(customer,new CustomerDTO());
+
+
     }
 
     @Override

@@ -67,10 +67,14 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO save(OrderDTO orderDTO) {
 
         Order order = mapperUtil.convert(orderDTO, new Order());
+        order.setCustomer(mapperUtil.convert(customerService.findById(orderDTO.getCustomerId()), new Customer()));
+        order.setPayment(mapperUtil.convert(paymentService.findById(orderDTO.getPaymentId()), new Payment()));
+        order.setCart(mapperUtil.convert(cartService.findById(orderDTO.getCartId()), new Cart()));
+        order.setPaidPrice(orderDTO.getPaidPrice());
+        order.setTotalPrice(orderDTO.getTotalPrice());
+        Order updatedOrder = orderRepository.save(order);
 
-        orderRepository.save(order);
-
-        return orderDTO;
+        return mapperUtil.convert(updatedOrder, new OrderDTO());
     }
 
     @Override
@@ -105,15 +109,15 @@ public class OrderServiceImpl implements OrderService {
         return mapperUtil.convert(order,new OrderDTO());
 
          */
+        Order order = mapperUtil.convert(orderDTO, new Order());
+        order.setCustomer(mapperUtil.convert(customerService.findById(orderDTO.getCustomerId()), new Customer()));
+        order.setPayment(mapperUtil.convert(paymentService.findById(orderDTO.getPaymentId()), new Payment()));
+        order.setCart(mapperUtil.convert(cartService.findById(orderDTO.getCartId()), new Cart()));
+        order.setPaidPrice(orderDTO.getPaidPrice());
+        order.setTotalPrice(orderDTO.getTotalPrice());
+        Order updatedOrder = orderRepository.save(order);
 
-        Order order = mapperUtil.convert(orderDTO,new Order());
-        order.setCustomer(mapperUtil.convert(customerService.findById(orderDTO.getCustomerId()),new Customer()));
-        order.setPayment(mapperUtil.convert(paymentService.findById(orderDTO.getPaymentId()),new Payment()));
-        order.setCart(mapperUtil.convert(cartService.findById(orderDTO.getCartId()),new Cart()));
-
-        orderRepository.save(order);
-
-        return mapperUtil.convert(order,new OrderDTO());
+        return mapperUtil.convert(updatedOrder, new OrderDTO());
 
     }
 }
