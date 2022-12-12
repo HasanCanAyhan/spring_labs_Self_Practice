@@ -6,13 +6,11 @@ import java.util.List;
 
 public interface CustomerService {
 
-    CustomerDTO findById(Long id);
+    CustomerDTO findById(Long customerId);
 
-    List<CustomerDTO> getCustomerList();
+    List<CustomerDTO> readAll();
+    CustomerDTO update(CustomerDTO customerDTO);
+    CustomerDTO create(CustomerDTO customerDTO);
 
-    void save(CustomerDTO customerDTO);
-
-    void update(CustomerDTO customerDTO);
-
-    CustomerDTO retrieveByCustomerEmail(String email);
+    CustomerDTO readByEmail(String email);
 }

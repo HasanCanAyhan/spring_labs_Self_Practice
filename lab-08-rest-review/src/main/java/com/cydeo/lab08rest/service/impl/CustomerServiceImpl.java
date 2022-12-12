@@ -1,7 +1,9 @@
 package com.cydeo.lab08rest.service.impl;
 
 import com.cydeo.lab08rest.dto.CustomerDTO;
+import com.cydeo.lab08rest.dto.DiscountDTO;
 import com.cydeo.lab08rest.entity.Customer;
+import com.cydeo.lab08rest.entity.Discount;
 import com.cydeo.lab08rest.mapper.MapperUtil;
 import com.cydeo.lab08rest.repository.CustomerRepository;
 import com.cydeo.lab08rest.service.CustomerService;
@@ -21,42 +23,46 @@ public class CustomerServiceImpl implements CustomerService {
         this.mapperUtil = mapperUtil;
     }
 
+
     @Override
-    public CustomerDTO findById(Long id) {
-        Customer customer = customerRepository.findById(id).orElseThrow();
+    public CustomerDTO findById(Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
         return mapperUtil.convert(customer,new CustomerDTO());
     }
 
     @Override
-    public List<CustomerDTO> getCustomerList() {
-        List<Customer> customers = customerRepository.findAll();
-        return customers.stream().map(customer -> mapperUtil.convert(customer,new CustomerDTO())).collect(Collectors.toList());
+    public List<CustomerDTO> readAll() {
+        List<Customer> customerList = customerRepository.findAll();
+        return customerList.stream().map(customer -> mapperUtil.convert(customer,new CustomerDTO()))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void save(CustomerDTO customerDTO) {
+    public CustomerDTO update(CustomerDTO customerDTO) {
 
-        customerRepository.save(mapperUtil.convert(customerDTO,new Customer()));
-    }
+        Customer customer = customerRepository.findByUsername(customerDTO.getUserName());
+        //lets say username is unique in the Customer-Entity
 
-    @Override
-    public void update(CustomerDTO customerDTO) {
-
-        Customer customer = customerRepository.findById(customerDTO.getId()).orElseThrow();
+        //we are not updating username , bcs it is unique
         customer.setEmail(customerDTO.getEmail());
         customer.setFirstName(customerDTO.getFirstName());
-        customer.setUserName(customerDTO.getUserName());
         customer.setLastName(customerDTO.getLastName());
 
-        customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.save(customer);
+
+        return mapperUtil.convert(savedCustomer,new CustomerDTO());
     }
 
     @Override
-    public CustomerDTO retrieveByCustomerEmail(String email) {
+    public CustomerDTO create(CustomerDTO customerDTO) {
 
-        Customer customer = customerRepository.retrieveByCustomerEmail(email);
+        Customer customer  = customerRepository.save(mapperUtil.convert(customerDTO,new Customer()));
 
-        return mapperUtil.convert(customer, new CustomerDTO());
+        return mapperUtil.convert(customer,new CustomerDTO());
+    }
 
+    @Override
+    public CustomerDTO readByEmail(String email) {
+        return mapperUtil.convert(customerRepository.retrieveByCustomerEmail(email),new CustomerDTO());
     }
 }
